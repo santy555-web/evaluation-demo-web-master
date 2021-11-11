@@ -1,0 +1,85 @@
+﻿<h1>Hi {{ currentUser.firstName }}!</h1>
+<p>You're logged in!!</p>
+<h3>All registered users:</h3>
+
+<div class="card">
+  <div class="card-header border-transparent">
+    <div style="float: left" class="d-flex justify-content-md-around">
+      <div class="card-title">
+        <span *ngIf="!showDate"
+          >{{ currentDate | date: "dd MMM yyyy hh:mm:ss a" }} 12 Hours</span
+        >
+        <span *ngIf="showDate"
+          >{{ currentDate | date: "dd MMM yyyy HH:mm:ss a" }} 24 Hours</span
+        >
+      </div>
+      <div class="card-title">
+        <label>Select Time</label>
+        <select
+          [(ngModel)]="date_item"
+          (ngModelChange)="onChangeDate(date_item)"
+        >
+          <option value="12-hour" selected>12 HOUR</option>
+          <option value="24-hour">24 HOUR</option>
+        </select>
+      </div>
+    </div>
+    <div style="float: right">
+      <input
+        class="form-control"
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search"
+      />
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th
+          scope="col"
+          [class.active]="order === 'userName'"
+          (click)="setOrder('userName')"
+        >
+          User Name <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th scope="col">Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let user of users
+            | filter: searchText
+            | paginate: { itemsPerPage: 10, currentPage: p }
+            | orderBy: order:reverse:'case-insensitive';
+          let i = index
+        "
+      >
+        <td>{{ i }}</td>
+        <td>{{ user.username }}</td>
+        <td>({{ user.firstName }} {{ user.lastName }})</td>
+        <td>
+          <a class="badge badge-secondary" href="#">{{ user.role }}</a>
+        </td>
+        <td>
+          <a
+            (click)="deleteUser(user.id)"
+            class="badge badge-danger"
+            *ngIf="currentUser.role == 'Auditor'"
+            >Delete</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="card-footer">
+    <div class="d-flex justify-content-end">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

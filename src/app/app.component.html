@@ -1,0 +1,17 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/audit" *ngIf="currentUser.role == 'Auditor'">Audit</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+       
+    </div>
+</nav>
+
+<!-- main app container -->
+    <div class="container">
+            <div class="offset-sm-0">
+                <alert></alert>
+                <router-outlet></router-outlet>
+        </div>
+    </div>
