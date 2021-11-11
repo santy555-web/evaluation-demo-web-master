@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
-    returnUrl: string;
+  //  returnUrl: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -20,13 +20,14 @@ export class LoginComponent implements OnInit {
         private alertService: AlertService
     ) {
         // redirect to home if already logged in
-
+        if(this.authenticationService.currentUserValue)
+        {
         if (this.authenticationService.currentUserValue.role ==="Auditor") {
             this.router.navigate(['/audit']);
         }
        else{
-        this.router.navigate(['/'])
-       }
+          this.router.navigate(['/'])
+       }}
     }
 
     ngOnInit() {
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/audit';
+        //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/audit';
     }
 
     // convenience getter for easy access to form fields
@@ -60,7 +61,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     if(data.role ==="Auditor")
                     {
-                      this.router.navigate([this.returnUrl]);
+                      this.router.navigate(["/audit"]);
                     }else{
                         this.router.navigate(['/']);
                     }

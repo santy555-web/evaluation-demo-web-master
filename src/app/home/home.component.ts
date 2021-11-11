@@ -4,7 +4,7 @@ import { OrderPipe } from "ngx-order-pipe";
 import { User } from "@/_models";
 import { UserService, AuthenticationService } from "@/_services";
 
-@Component({ templateUrl: "home.component.html"})
+@Component({ templateUrl: "home.component.html" })
 export class HomeComponent implements OnInit {
   currentUser: User;
   users = [];
@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
   order: string = "name";
   reverse: boolean = false;
   currentDate = new Date();
-  date_item: string ="12-hour";
-  showDate:boolean= false;
+  date_item: string = "12-hour";
+  showDate: boolean = false;
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     setInterval(() => {
-        this.currentDate = new Date();
-      }, 1);
+      this.currentDate = new Date();
+    }, 1);
   }
 
   ngOnInit() {
@@ -49,13 +49,11 @@ export class HomeComponent implements OnInit {
         this.users = this.orderPipe.transform(users, "userName");
       });
   }
-  onChangeDate(item){
-    if(item==="24-hour")
-    {
-        this.showDate = true;
-    }
-    else{
-        this.showDate = false;
+  onChangeDate(item) {
+    if (item === "24-hour") {
+      this.showDate = true;
+    } else {
+      this.showDate = false;
     }
   }
 }
