@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   order: string = "name";
   reverse: boolean = false;
   currentDate = new Date();
-  date_item: string;
+  date_item: string ="12-hour";
   showDate:boolean= false;
   constructor(
     private authenticationService: AuthenticationService,

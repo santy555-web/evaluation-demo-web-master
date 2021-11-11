@@ -4,25 +4,20 @@
 
 <div class="card">
   <div class="card-header border-transparent">
-    <div style="float: left" class="d-flex justify-content-md-around">
-      <div class="card-title">
+    <div style="float: left">
         <span *ngIf="!showDate"
-          >{{ currentDate | date: "dd MMM yyyy hh:mm:ss a" }} 12 Hours</span
+          >{{ currentDate | date: "dd MMM yyyy hh:mm:ss a" }}</span
         >
         <span *ngIf="showDate"
-          >{{ currentDate | date: "dd MMM yyyy HH:mm:ss a" }} 24 Hours</span
+          >{{ currentDate | date: "dd MMM yyyy HH:mm:ss a" }}</span
         >
-      </div>
-      <div class="card-title">
-        <label>Select Time</label>
-        <select
-          [(ngModel)]="date_item"
+        <label class="ml-lg-3">Select Time</label>
+        <select [(ngModel)]="date_item" class="ml-1" style="border-radius: 5px;"
           (ngModelChange)="onChangeDate(date_item)"
         >
           <option value="12-hour" selected>12 HOUR</option>
           <option value="24-hour">24 HOUR</option>
         </select>
-      </div>
     </div>
     <div style="float: right">
       <input
